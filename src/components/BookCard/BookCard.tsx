@@ -18,6 +18,10 @@ type BookCardProps = {
 
   progress?: number;
 
+  pageCount?: number | null;
+
+  currentPage?: number;
+
   showAddButton?: boolean;
 
   onAddToShelf?: () => void;
@@ -27,12 +31,15 @@ type BookCardProps = {
   onMoveShelf?: (
     shelf: 'reading' | 'want-to-read' | 'finished'
   ) => void;
+
+  onPageChange?: (
+    currentPage: number
+  ) => void;
 };
 
 
 
 // COMPONENT
-
 
 function BookCard({
   title,
@@ -40,10 +47,13 @@ function BookCard({
   cover,
   status,
   progress = 0,
+  pageCount,
+  currentPage = 0,
   showAddButton = false,
   onAddToShelf,
   showShelfControls = false,
   onMoveShelf,
+  onPageChange,
 }: BookCardProps) {
   return (
     <article className="book-card">
@@ -100,6 +110,37 @@ function BookCard({
                 style={{ width: `${progress}%` }}
               />
             </div>
+
+            {pageCount ? (
+              <label className="page-progress-label">
+                <span>
+                  Current page
+                </span>
+
+                <div className="page-progress-input">
+                  <input
+                    type="number"
+                    min={0}
+                    max={pageCount}
+                    value={currentPage}
+                    onChange={(event) =>
+                      onPageChange?.(
+                        Number(event.target.value)
+                      )
+                    }
+                    aria-label={`Current page for ${title}`}
+                  />
+
+                  <span>
+                    of {pageCount}
+                  </span>
+                </div>
+              </label>
+            ) : (
+              <p className="page-progress-fallback">
+                Page count unavailable
+              </p>
+            )}
           </div>
         )}
 

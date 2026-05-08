@@ -21,6 +21,7 @@ function Home() {
     shelfBooks,
     addBookToShelf,
     moveBookToShelf,
+    updateBookPage,
   } = useBooks();
 
   // Filter books by shelf
@@ -67,17 +68,13 @@ function Home() {
             reading journey one chapter at a time.
           </p>
 
-          <button
-            className="primary-button"
-            type="button"
-          >
+          <button className="primary-button" type="button">
             Start Reading
           </button>
         </div>
 
         <div className="hero-card" aria-hidden="true">
           <span className="hero-icon">🍂</span>
-
           <p>Read. Reflect. Reconnect.</p>
         </div>
       </section>
@@ -96,10 +93,7 @@ function Home() {
             </h2>
           </div>
 
-          <button
-            className="text-button"
-            type="button"
-          >
+          <button className="text-button" type="button">
             View all
           </button>
         </div>
@@ -108,7 +102,6 @@ function Home() {
         <div className="shelf-group">
           <div className="shelf-heading">
             <h3>Currently Reading</h3>
-
             <p>Books you are actively reading.</p>
           </div>
 
@@ -123,10 +116,15 @@ function Home() {
                 author={book.author}
                 cover={book.coverUrl ?? ''}
                 status="reading"
-                progress={35 + index * 15}
+                progress={book.progress}
+                pageCount={book.pageCount}
+                currentPage={book.currentPage}
                 showShelfControls={true}
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
+                }
+                onPageChange={(currentPage) =>
+                  updateBookPage(book.isbn13, currentPage)
                 }
               />
             ))}
@@ -137,7 +135,6 @@ function Home() {
         <div className="shelf-group">
           <div className="shelf-heading">
             <h3>Want to Read</h3>
-
             <p>Books saved for later.</p>
           </div>
 
@@ -152,9 +149,15 @@ function Home() {
                 author={book.author}
                 cover={book.coverUrl ?? ''}
                 status="want-to-read"
+                progress={book.progress}
+                pageCount={book.pageCount}
+                currentPage={book.currentPage}
                 showShelfControls={true}
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
+                }
+                onPageChange={(currentPage) =>
+                  updateBookPage(book.isbn13, currentPage)
                 }
               />
             ))}
@@ -165,7 +168,6 @@ function Home() {
         <div className="shelf-group">
           <div className="shelf-heading">
             <h3>Finished</h3>
-
             <p>Books you completed recently.</p>
           </div>
 
@@ -180,9 +182,15 @@ function Home() {
                 author={book.author}
                 cover={book.coverUrl ?? ''}
                 status="finished"
+                progress={book.progress}
+                pageCount={book.pageCount}
+                currentPage={book.currentPage}
                 showShelfControls={true}
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
+                }
+                onPageChange={(currentPage) =>
+                  updateBookPage(book.isbn13, currentPage)
                 }
               />
             ))}
@@ -205,7 +213,6 @@ function Home() {
           </div>
         </div>
 
-        {/* Discover books from starter data */}
         <div
           className="discover-grid"
           aria-label="Recommended books to discover"

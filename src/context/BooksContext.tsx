@@ -15,12 +15,13 @@ import starterBooks from '../data/sample-books.json';
 import type { Book } from '../types';
 
 
-
 // TYPES
 
 
 type ShelfBook = Book & {
   shelf: 'reading' | 'want-to-read' | 'finished';
+  progress: number;
+  currentPage: number;
 };
 
 type BooksContextType = {
@@ -34,6 +35,11 @@ type BooksContextType = {
   moveBookToShelf: (
     isbn13: string | null,
     newShelf: ShelfBook['shelf']
+  ) => void;
+
+  updateBookPage: (
+    isbn13: string | null,
+    currentPage: number
   ) => void;
 };
 
@@ -55,9 +61,7 @@ type BooksProviderProps = {
   children: ReactNode;
 };
 
-export function BooksProvider({
-  children,
-}: BooksProviderProps) {
+export function BooksProvider({ children }: BooksProviderProps) {
   // Load saved shelf books
   const [shelfBooks, setShelfBooks] = useState<ShelfBook[]>(() => {
     const savedBooks = localStorage.getItem('autumns-nook-shelf');
@@ -66,20 +70,39 @@ export function BooksProvider({
       return JSON.parse(savedBooks);
     }
 
-    // Starter books
-    return starterBooks.slice(0, 6).map((book, index) => ({
-      ...book,
-
-      shelf:
+    // Starter guest books
+    return starterBooks.slice(0, 6).map((book, index) => {
+      const shelf =
         index < 2
           ? 'reading'
           : index < 4
             ? 'want-to-read'
-            : 'finished',
-    }));
+            : 'finished';
+
+      const currentPage =
+        shelf === 'reading' && book.pageCount
+          ? Math.round(book.pageCount * 0.35)
+          : shelf === 'finished' && book.pageCount
+            ? book.pageCount
+            : 0;
+
+      const progress =
+        book.pageCount && book.pageCount > 0
+          ? Math.round((currentPage / book.pageCount) * 100)
+          : shelf === 'finished'
+            ? 100
+            : 0;
+
+      return {
+        ...book,
+        shelf,
+        currentPage,
+        progress,
+      };
+    });
   });
 
-  // Save to localStorage
+  // Save shelf books to localStorage
   useEffect(() => {
     localStorage.setItem(
       'autumns-nook-shelf',
@@ -87,27 +110,34 @@ export function BooksProvider({
     );
   }, [shelfBooks]);
 
-  // Add book to shelf
+  // Add new book to shelf
   function addBookToShelf(
     book: Book,
     shelf: ShelfBook['shelf']
   ) {
     setShelfBooks((prevBooks) => {
-      // Prevent duplicates
       const alreadyExists = prevBooks.some(
-        (existingBook) =>
-          existingBook.isbn13 === book.isbn13
+        (existingBook) => existingBook.isbn13 === book.isbn13
       );
 
       if (alreadyExists) {
         return prevBooks;
       }
 
+      const currentPage =
+        shelf === 'finished' && book.pageCount
+          ? book.pageCount
+          : 0;
+
+      const progress = shelf === 'finished' ? 100 : 0;
+
       return [
         ...prevBooks,
         {
           ...book,
           shelf,
+          currentPage,
+          progress,
         },
       ];
     });
@@ -120,14 +150,61 @@ export function BooksProvider({
   ) {
     setShelfBooks((prevBooks) =>
       prevBooks.map((book) => {
-        if (book.isbn13 === isbn13) {
-          return {
-            ...book,
-            shelf: newShelf,
-          };
+        if (book.isbn13 !== isbn13) {
+          return book;
         }
 
-        return book;
+        const currentPage =
+          newShelf === 'finished' && book.pageCount
+            ? book.pageCount
+            : newShelf === 'want-to-read'
+              ? 0
+              : book.currentPage;
+
+        const progress =
+          book.pageCount && book.pageCount > 0
+            ? Math.round((currentPage / book.pageCount) * 100)
+            : newShelf === 'finished'
+              ? 100
+              : 0;
+
+        return {
+          ...book,
+          shelf: newShelf,
+          currentPage,
+          progress,
+        };
+      })
+    );
+  }
+
+  // Update current page and calculate progress
+  function updateBookPage(
+    isbn13: string | null,
+    currentPage: number
+  ) {
+    setShelfBooks((prevBooks) =>
+      prevBooks.map((book) => {
+        if (book.isbn13 !== isbn13) {
+          return book;
+        }
+
+        const safePage = Math.min(
+          Math.max(currentPage, 0),
+          book.pageCount ?? currentPage
+        );
+
+        const progress =
+          book.pageCount && book.pageCount > 0
+            ? Math.round((safePage / book.pageCount) * 100)
+            : 0;
+
+        return {
+          ...book,
+          currentPage: safePage,
+          progress,
+          shelf: progress >= 100 ? 'finished' : book.shelf,
+        };
       })
     );
   }
@@ -138,6 +215,7 @@ export function BooksProvider({
         shelfBooks,
         addBookToShelf,
         moveBookToShelf,
+        updateBookPage,
       }}
     >
       {children}
@@ -154,9 +232,7 @@ export function useBooks() {
   const context = useContext(BooksContext);
 
   if (!context) {
-    throw new Error(
-      'useBooks must be used inside BooksProvider'
-    );
+    throw new Error('useBooks must be used inside BooksProvider');
   }
 
   return context;
