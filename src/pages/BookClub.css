@@ -1,0 +1,257 @@
+/* ==============================
+   PAGE
+============================== */
+
+.book-club-page {
+  padding: 2rem;
+  background-color: #fffaf5;
+  color: #3f2d23;
+}
+
+
+/* ==============================
+   HEADER
+============================== */
+
+.book-club-header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.book-club-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.book-club-header p {
+    margin: 0.35rem auto 0;
+    max-width: 620px;
+    color: #6b5749;
+    line-height: 1.6;
+}
+
+
+/* ==============================
+   LAYOUT
+============================== */
+
+.book-club-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr;
+  gap: 1.25rem;
+}
+
+
+/* ==============================
+   MONTHLY PICK
+============================== */
+
+.club-pick-card,
+.community-feed-card,
+.review-card {
+  border: 1px solid #eee2d8;
+  border-radius: 22px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 24px rgba(63, 45, 35, 0.05);
+}
+
+.club-pick-card {
+  padding: 1.5rem;
+}
+
+.club-pick-content {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.club-pick-content img,
+.club-cover-placeholder {
+  width: 150px;
+  height: 220px;
+  border-radius: 16px;
+  object-fit: cover;
+  background-color: #eadfd6;
+}
+
+.club-cover-placeholder {
+  display: grid;
+  place-items: center;
+  color: #6b5749;
+}
+
+.club-pick-content h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.club-author {
+  margin: 0.35rem 0 1rem;
+  color: #6b5749;
+}
+
+.club-description {
+  max-width: 650px;
+  color: #5b4636;
+  line-height: 1.6;
+}
+
+.club-button {
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 14px;
+  background-color: #6f4aa3;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+}
+
+
+/* ==============================
+   COMMUNITY FEED
+============================== */
+
+.community-feed-card {
+  padding: 1.5rem;
+}
+
+.community-feed-card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.feed-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.feed-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.feed-item img,
+.feed-placeholder {
+  width: 48px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: #eadfd6;
+}
+
+.feed-item p {
+  margin: 0;
+  color: #5b4636;
+  line-height: 1.4;
+}
+
+.feed-item span {
+  color: #3f2d23;
+  font-weight: 700;
+}
+
+.feed-item small {
+  color: #9c8a7a;
+}
+
+
+/* ==============================
+   REVIEWS
+============================== */
+
+.reviews-section {
+  margin-top: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid #eee2d8;
+  border-radius: 22px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 24px rgba(63, 45, 35, 0.05);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.review-card {
+  padding: 1.25rem;
+}
+
+.review-header {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background-color: #f4e7db;
+  color: #6f4aa3;
+  font-weight: 800;
+}
+
+.review-header h3,
+.review-header p {
+  margin: 0;
+}
+
+.review-header p {
+  color: #9c8a7a;
+  font-size: 0.85rem;
+}
+
+.stars {
+  margin: 1rem 0 0.6rem;
+  color: #d9792b;
+  letter-spacing: 0.08em;
+}
+
+.review-text {
+  color: #5b4636;
+  line-height: 1.6;
+}
+
+.review-book {
+  margin-bottom: 0;
+  color: #6b5749;
+  font-size: 0.9rem;
+}
+
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 1000px) {
+  .book-club-layout,
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .book-club-page {
+    padding: 1rem;
+  }
+
+  .club-pick-content {
+    grid-template-columns: 1fr;
+  }
+
+  .club-pick-content img,
+  .club-cover-placeholder {
+    width: 100%;
+    max-width: 180px;
+  }
+}
