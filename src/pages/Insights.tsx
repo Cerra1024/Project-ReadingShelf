@@ -1,110 +1,160 @@
-
+// ==============================
 // IMPORTS
+// ==============================
 
+import { useBooks } from '../context/BooksContext';
 
-import books from '../data/sample-books.json';
 import './Insights.css';
 
 
-
-// SAMPLE ANALYTICS
-
-
-const completedBooks = 18;
-
-const pagesRead = books.reduce((total, book) => {
-  return total + (book.pageCount ?? 0);
-}, 0);
-
-const genresExplored = 6;
-
-const readingStreak = 14;
-
-
-
+// ==============================
 // COMPONENT
-
+// ==============================
 
 function Insights() {
+  const { shelfBooks } = useBooks();
+
+  // Completed books
+  const completedBooks = shelfBooks.filter(
+    (book) => book.shelf === 'finished'
+  ).length;
+
+  // Total pages read
+  const pagesRead = shelfBooks.reduce(
+    (total, book) => {
+      return total + (book.currentPage ?? 0);
+    },
+    0
+  );
+
+  // Genre count
+  const genres = new Set(
+    shelfBooks
+      .map((book) => book.genre)
+      .filter(Boolean)
+  );
+
+  const genresExplored = genres.size;
+
+  // Mock streak for now
+  const dayStreak = 14;
+
   return (
     <main className="insights-page">
-      {/* Page heading */}
-      <section className="insights-header" aria-labelledby="insights-title">
-        <h1 id="insights-title">Reading Insights</h1>
+      {/* Hero */}
+      <section className="insights-hero">
+        <p className="eyebrow">
+          Reading Insights
+        </p>
+
+        <h1>
+          Reading Insights
+        </h1>
 
         <p>
           Explore your reading journey in numbers.
         </p>
       </section>
 
-      {/* Stat cards */}
+      {/* Top stat cards */}
       <section
-        className="insights-stats"
+        className="stats-grid"
         aria-label="Reading statistics"
       >
-        <article className="insight-stat-card">
-          <span className="stat-icon purple" aria-hidden="true">📚</span>
+        {/* Completed books */}
+        <article className="stat-card">
+          <div className="stat-icon purple">
+            📚
+          </div>
 
           <div>
-            <h2>{completedBooks}</h2>
-            <p>Books Completed</p>
+            <h2>
+              {completedBooks}
+            </h2>
+
+            <p>
+              Books Completed
+            </p>
           </div>
         </article>
 
-        <article className="insight-stat-card">
-          <span className="stat-icon green" aria-hidden="true">📖</span>
+        {/* Pages read */}
+        <article className="stat-card">
+          <div className="stat-icon green">
+            📖
+          </div>
 
           <div>
-            <h2>{pagesRead.toLocaleString()}</h2>
-            <p>Pages Read</p>
+            <h2>
+              {pagesRead.toLocaleString()}
+            </h2>
+
+            <p>
+              Pages Read
+            </p>
           </div>
         </article>
 
-        <article className="insight-stat-card">
-          <span className="stat-icon orange" aria-hidden="true">🖊️</span>
+       {/* Reading Goal */}
+    <article className="stat-card">
+      <div className="stat-icon orange">
+        🎯
+      </div>
 
-          <div>
-            <h2>{genresExplored}</h2>
-            <p>Genres Explored</p>
+        <div>
+      <h2>
+        68%
+      </h2>
+
+          <p>
+            Annual Goal Progress
+          </p>
+        </div>
+      </article>
+
+        {/* Streak */}
+        <article className="stat-card">
+          <div className="stat-icon peach">
+            🔥
           </div>
-        </article>
-
-        <article className="insight-stat-card">
-          <span className="stat-icon peach" aria-hidden="true">🔥</span>
 
           <div>
-            <h2>{readingStreak}</h2>
-            <p>Day Streak</p>
+            <h2>
+              {dayStreak}
+            </h2>
+
+            <p>
+              Day Streak
+            </p>
           </div>
         </article>
       </section>
 
-      {/* Charts */}
-      <section
-        className="insights-charts"
-        aria-label="Reading charts"
-      >
-        <article className="chart-panel">
-          <div className="chart-header">
-            <h2>Books Read Over Time</h2>
+      {/* Charts section */}
+      <section className="insights-panels">
+        {/* Reading chart */}
+        <article className="panel-card">
+          <div className="panel-header">
+            <h2>
+              Books Read Over Time
+            </h2>
 
-            <button type="button" className="year-button">
+            <button type="button">
               This Year
             </button>
           </div>
 
-          <div className="bar-chart" aria-hidden="true">
-            <span style={{ height: '15%' }} />
-            <span style={{ height: '48%' }} />
-            <span style={{ height: '65%' }} />
-            <span style={{ height: '72%' }} />
-            <span style={{ height: '70%' }} />
-            <span style={{ height: '88%' }} />
-            <span style={{ height: '58%' }} />
-            <span style={{ height: '32%' }} />
+          <div className="mock-chart">
+            <div style={{ height: '35%' }} />
+            <div style={{ height: '52%' }} />
+            <div style={{ height: '65%' }} />
+            <div style={{ height: '64%' }} />
+            <div style={{ height: '74%' }} />
+            <div style={{ height: '48%' }} />
+            <div style={{ height: '26%' }} />
           </div>
 
-          <div className="chart-months" aria-hidden="true">
+          <div className="chart-labels">
             <span>Jan</span>
             <span>Feb</span>
             <span>Mar</span>
@@ -112,85 +162,127 @@ function Insights() {
             <span>May</span>
             <span>Jun</span>
             <span>Jul</span>
-            <span>Aug</span>
           </div>
         </article>
 
-        <article className="chart-panel">
-          <h2>Top Genres</h2>
+        {/* Genre panel */}
+        <article className="panel-card">
+          <h2>
+            Top Genres
+          </h2>
 
-          <div className="genre-chart-layout">
-            <div className="donut-chart" aria-hidden="true" />
+          <div className="genre-layout">
+            <div className="genre-circle" />
 
-            <ul className="genre-list">
-              <li><span className="dot fantasy" />Fantasy <strong>40%</strong></li>
-              <li><span className="dot sci-fi" />Science Fiction <strong>25%</strong></li>
-              <li><span className="dot romance" />Romance <strong>15%</strong></li>
-              <li><span className="dot thriller" />Thriller <strong>10%</strong></li>
-              <li><span className="dot nonfiction" />Non-Fiction <strong>10%</strong></li>
-            </ul>
+            <div className="genre-list">
+              <div>
+                <span className="dot purple-dot" />
+                Fantasy
+              </div>
+
+              <div>
+                <span className="dot orange-dot" />
+                Romance
+              </div>
+
+              <div>
+                <span className="dot teal-dot" />
+                Sci-Fi
+              </div>
+
+              <div>
+                <span className="dot brown-dot" />
+                Fiction
+              </div>
+            </div>
           </div>
         </article>
       </section>
 
-      {/* Wrapped recap */}
-      <section
-        className="wrapped-section"
-        aria-labelledby="wrapped-title"
-      >
-        <div className="wrapped-header">
-          <div>
-            <h2 id="wrapped-title">Your Reading Wrapped</h2>
-            <p>Your 2026 reading highlights</p>
+      {/* Wrapped section */}
+      <section className="wrapped-section">
+        <div className="wrapped-card">
+          <div className="wrapped-header">
+            <div>
+              <p className="wrapped-eyebrow">
+                Your Reading Wrapped
+              </p>
+
+              <h2>
+                Your 2025 reading highlights
+              </h2>
+            </div>
+
+            <button type="button">
+              Share
+            </button>
           </div>
 
-          <button type="button" className="share-button">
-            Share
-          </button>
-        </div>
+          <div className="wrapped-grid">
+            <article>
+              <span>🏆</span>
 
-        <div className="wrapped-grid">
-          <article className="wrapped-card">
-            <span aria-hidden="true">🏆</span>
-            <p>Top Genre</p>
-            <h3>Fantasy</h3>
-          </article>
+              <h3>
+                Top Genre
+              </h3>
 
-          <article className="wrapped-card">
-            <span aria-hidden="true">👤</span>
-            <p>Favorite Author</p>
-            <h3>Brandon Sanderson</h3>
-          </article>
+              <p>
+                Fantasy
+              </p>
+            </article>
 
-          <article className="wrapped-card">
-            <span aria-hidden="true">📘</span>
-            <p>Longest Book</p>
-            <h3>Dune</h3>
-            <small>688 pages</small>
-          </article>
+            <article>
+              <span>👤</span>
 
-          <article className="wrapped-card">
-            <span aria-hidden="true">⚡</span>
-            <p>Fastest Read</p>
-            <h3>The Alchemist</h3>
-            <small>2 days</small>
-          </article>
+              <h3>
+                Favorite Author
+              </h3>
 
-          <article className="wrapped-card">
-            <span aria-hidden="true">🔥</span>
-            <p>Reading Streak</p>
-            <h3>14 days</h3>
-            <small>Keep it up!</small>
-          </article>
+              <p>
+                Brandon Sanderson
+              </p>
+            </article>
+
+            <article>
+              <span>📘</span>
+
+              <h3>
+                Longest Book
+              </h3>
+
+              <p>
+                Dune
+              </p>
+            </article>
+
+            <article>
+              <span>⚡</span>
+
+              <h3>
+                Fastest Read
+              </h3>
+
+              <p>
+                The Alchemist
+              </p>
+            </article>
+
+            <article>
+              <span>🔥</span>
+
+              <h3>
+                Reading Streak
+              </h3>
+
+              <p>
+                14 Days
+              </p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
   );
 }
-
-
-
-// EXPORT
-
 
 export default Insights;
