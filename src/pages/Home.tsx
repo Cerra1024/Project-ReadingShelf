@@ -24,6 +24,17 @@ function Home() {
     updateBookPage,
   } = useBooks();
 
+  // Scroll to bookshelf section
+function scrollToShelf() {
+  const shelfSection = document.getElementById(
+    'bookshelf-section'
+  );
+
+  shelfSection?.scrollIntoView({
+    behavior: 'smooth',
+  });
+}
+
   // Filter books by shelf
   const currentlyReading = shelfBooks.filter(
     (book) => book.shelf === 'reading'
@@ -56,7 +67,7 @@ function Home() {
       >
         <div className="hero-content">
           <p className="eyebrow">
-            Your cozy reading corner
+            Read. Reflect. Reconnect.
           </p>
 
           <h1 id="home-hero-title">
@@ -68,20 +79,22 @@ function Home() {
             reading journey one chapter at a time.
           </p>
 
-          <button className="primary-button" type="button">
-            Start Reading
-          </button>
+          <button
+        className="primary-button"
+        type="button"
+        onClick={scrollToShelf}
+        >
+         Start Reading
+        </button>
         </div>
 
-        <div className="hero-card" aria-hidden="true">
-          <span className="hero-icon">🍂</span>
-          <p>Read. Reflect. Reconnect.</p>
-        </div>
+        
       </section>
 
       {/* Bookshelf section */}
       <section
-        className="bookshelf-section"
+         id="bookshelf-section"
+         className="bookshelf-section"
         aria-labelledby="bookshelf-title"
       >
         <div className="section-header">

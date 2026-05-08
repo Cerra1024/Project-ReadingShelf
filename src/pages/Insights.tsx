@@ -227,7 +227,7 @@ function Insights() {
               </h3>
 
               <p>
-                Fantasy
+                Historical Fiction
               </p>
             </article>
 
@@ -239,7 +239,7 @@ function Insights() {
               </h3>
 
               <p>
-                Brandon Sanderson
+                Toni Morrison
               </p>
             </article>
 
@@ -251,7 +251,7 @@ function Insights() {
               </h3>
 
               <p>
-                Dune
+                Beloved
               </p>
             </article>
 

@@ -16,6 +16,8 @@ import BookModal from '../BookModal/BookModal';
 
 import './Header.css';
 
+import logo from '../../assets/anlogo.png';
+
 
 
 // COMPONENT
@@ -65,12 +67,11 @@ function Header() {
       <header className="header">
         {/* Logo / Brand */}
         <div className="brand">
-          <div
-            className="brand-icon"
-            aria-hidden="true"
-          >
-            🍂
-          </div>
+          <img
+  className="brand-logo"
+  src={logo}
+  alt="Autumn's Nook logo"
+/>
 
           <p className="brand-name">
             Autumn&apos;s Nook
