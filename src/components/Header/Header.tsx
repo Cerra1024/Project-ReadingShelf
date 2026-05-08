@@ -2,12 +2,13 @@
 // IMPORTS
 
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import books from '../../data/sample-books.json';
-
-import type { Book } from '../../types';
+import {
+  searchGoogleBooks,
+  type GoogleBook,
+} from '../../services/googleBooks';
 
 import './Header.css';
 
@@ -20,22 +21,31 @@ function Header() {
   // Search input state
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Filter books based on title or author
-  const filteredBooks = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return [];
-    }
+  // Google Books API results
+  const [searchResults, setSearchResults] = useState<GoogleBook[]>([]);
 
-    return books
-      .filter((book: Book) => {
-        const normalizedSearch = searchTerm.toLowerCase();
+  // Loading state for search feedback
+  const [isSearching, setIsSearching] = useState(false);
 
-        return (
-          book.title.toLowerCase().includes(normalizedSearch) ||
-          book.author.toLowerCase().includes(normalizedSearch)
-        );
-      })
-      .slice(0, 5);
+  // Fetch books when search term changes
+  useEffect(() => {
+    const searchTimer = setTimeout(async () => {
+      if (!searchTerm.trim()) {
+        setSearchResults([]);
+        return;
+      }
+
+      setIsSearching(true);
+
+      const results = await searchGoogleBooks(searchTerm);
+
+      setSearchResults(results);
+      setIsSearching(false);
+    }, 500);
+
+    return () => {
+      clearTimeout(searchTimer);
+    };
   }, [searchTerm]);
 
   return (
@@ -73,6 +83,7 @@ function Header() {
           className="search-form"
           role="search"
           aria-label="Search books"
+          onSubmit={(event) => event.preventDefault()}
         >
           <label
             htmlFor="book-search"
@@ -92,16 +103,25 @@ function Header() {
           />
         </form>
 
+        {/* Loading message */}
+        {isSearching && (
+          <div className="search-results">
+            <p className="search-message">
+              Searching books...
+            </p>
+          </div>
+        )}
+
         {/* Search suggestions */}
-        {filteredBooks.length > 0 && (
+        {!isSearching && searchResults.length > 0 && (
           <div
             className="search-results"
             role="listbox"
             aria-label="Search suggestions"
           >
-            {filteredBooks.map((book, index) => (
+            {searchResults.map((book) => (
               <article
-                key={book.isbn13 ?? `${book.title}-${index}`}
+                key={book.id}
                 className="search-result-card"
               >
                 {book.coverUrl ? (
