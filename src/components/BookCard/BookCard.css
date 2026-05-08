@@ -1,0 +1,73 @@
+/* ==============================
+   BOOK CARD
+============================== */
+
+.book-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #eee2d8;
+  border-radius: 20px;
+  background-color: #fffaf5;
+}
+
+.book-cover {
+  width: 76px;
+  height: 108px;
+  border-radius: 12px;
+  object-fit: cover;
+  background-color: #eadfd6;
+}
+
+.book-info {
+  flex: 1;
+}
+
+.book-info h3 {
+  margin: 0.25rem 0;
+  color: #3f2d23;
+}
+
+.book-status {
+  margin: 0;
+  color: #9b5b33;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.book-author {
+  margin: 0;
+  color: #6b5749;
+}
+
+
+/* ==============================
+   PROGRESS
+============================== */
+
+.progress-area {
+  margin-top: 1rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  color: #6b5749;
+  font-size: 0.85rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #eadfd6;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background-color: #6f4aa3;
+}

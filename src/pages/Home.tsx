@@ -2,6 +2,7 @@
 // IMPORTS
 
 
+import BookCard from '../components/BookCard/BookCard';
 import './Home.css';
 
 
@@ -37,12 +38,18 @@ function Home() {
         </div>
       </section>
 
-      {/* Bookshelf section shows the main reading management area */}
-      <section className="bookshelf-section" aria-labelledby="bookshelf-title">
+      {/* Bookshelf section */}
+      <section
+        className="bookshelf-section"
+        aria-labelledby="bookshelf-title"
+      >
         <div className="section-header">
           <div>
             <p className="eyebrow">My Library</p>
-            <h2 id="bookshelf-title">My Bookshelf</h2>
+
+            <h2 id="bookshelf-title">
+              My Bookshelf
+            </h2>
           </div>
 
           <button className="text-button" type="button">
@@ -50,12 +57,14 @@ function Home() {
           </button>
         </div>
 
+        {/* Shelf overview cards */}
         <div className="shelf-list" aria-label="Book shelves">
           <article className="shelf-card">
             <div>
               <h3>Currently Reading</h3>
               <p>Books you are actively reading.</p>
             </div>
+
             <span aria-label="3 books">3</span>
           </article>
 
@@ -64,6 +73,7 @@ function Home() {
               <h3>Want to Read</h3>
               <p>Books saved for later.</p>
             </div>
+
             <span aria-label="6 books">6</span>
           </article>
 
@@ -72,17 +82,52 @@ function Home() {
               <h3>Finished</h3>
               <p>Books you completed.</p>
             </div>
+
             <span aria-label="8 books">8</span>
           </article>
         </div>
+
+        {/* Preview book cards */}
+        <div
+          className="book-grid"
+          aria-label="Books currently on your shelf"
+        >
+          <BookCard
+            title="The Midnight Library"
+            author="Matt Haig"
+            cover="https://covers.openlibrary.org/b/id/10521270-L.jpg"
+            status="reading"
+            progress={42}
+          />
+
+          <BookCard
+            title="Atomic Habits"
+            author="James Clear"
+            cover="https://covers.openlibrary.org/b/id/8231996-L.jpg"
+            status="want-to-read"
+          />
+
+          <BookCard
+            title="Dune"
+            author="Frank Herbert"
+            cover="https://covers.openlibrary.org/b/id/8101354-L.jpg"
+            status="finished"
+          />
+        </div>
       </section>
 
-      {/* Discover section will later connect to Google Books API */}
-      <section className="discover-section" aria-labelledby="discover-title">
+      {/* Discover section */}
+      <section
+        className="discover-section"
+        aria-labelledby="discover-title"
+      >
         <div className="section-header">
           <div>
             <p className="eyebrow">Discover</p>
-            <h2 id="discover-title">Discover Books</h2>
+
+            <h2 id="discover-title">
+              Discover Books
+            </h2>
           </div>
         </div>
 
@@ -95,6 +140,7 @@ function Home() {
     </main>
   );
 }
+
 
 
 // EXPORT
