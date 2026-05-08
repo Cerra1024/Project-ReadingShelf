@@ -110,6 +110,61 @@
   border-color: #6f4aa3;
 }
 
+/* ==============================
+   SEARCH DROPDOWN
+============================== */
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #eadfd6;
+  border-radius: 18px;
+  background-color: white;
+  box-shadow: 0 18px 40px rgba(63, 45, 35, 0.12);
+  z-index: 1000;
+}
+
+.search-result-card {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem;
+  border-radius: 14px;
+}
+
+.search-result-card:hover {
+  background-color: #fff7f1;
+}
+
+.search-result-card img,
+.search-placeholder {
+  width: 42px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: #eadfd6;
+}
+
+.search-result-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #3f2d23;
+}
+
+.search-result-card p {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: #6b5749;
+}
 
 /* ==============================
    ACCESSIBILITY
