@@ -173,3 +173,26 @@
     padding: 2rem;
   }
 }
+
+/* ==============================
+   SHELF GROUPS
+============================== */
+
+.shelf-group {
+  margin-top: 2rem;
+}
+
+.shelf-heading {
+  margin-bottom: 1rem;
+}
+
+.shelf-heading h3 {
+  margin: 0;
+  color: #3f2d23;
+}
+
+.shelf-heading p {
+  margin: 0.35rem 0 0;
+  color: #6b5749;
+}
+

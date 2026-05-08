@@ -3,7 +3,20 @@
 
 
 import BookCard from '../components/BookCard/BookCard';
+import books from '../data/sample-books.json';
+import type { Book } from '../types';
 import './Home.css';
+
+
+
+// SAMPLE SHELF DATA
+
+
+const currentlyReading: Book[] = books.slice(0, 3);
+
+const wantToRead: Book[] = books.slice(3, 6);
+
+const finishedBooks: Book[] = books.slice(6, 9);
 
 
 
@@ -14,9 +27,14 @@ function Home() {
   return (
     <main className="home-page">
       {/* Hero section introduces the app */}
-      <section className="hero-section" aria-labelledby="home-hero-title">
+      <section
+        className="hero-section"
+        aria-labelledby="home-hero-title"
+      >
         <div className="hero-content">
-          <p className="eyebrow">Your cozy reading corner</p>
+          <p className="eyebrow">
+            Your cozy reading corner
+          </p>
 
           <h1 id="home-hero-title">
             Welcome to Autumn&apos;s Nook
@@ -27,13 +45,17 @@ function Home() {
             reading journey one chapter at a time.
           </p>
 
-          <button className="primary-button" type="button">
+          <button
+            className="primary-button"
+            type="button"
+          >
             Start Reading
           </button>
         </div>
 
         <div className="hero-card" aria-hidden="true">
           <span className="hero-icon">🍂</span>
+
           <p>Read. Reflect. Reconnect.</p>
         </div>
       </section>
@@ -52,67 +74,85 @@ function Home() {
             </h2>
           </div>
 
-          <button className="text-button" type="button">
+          <button
+            className="text-button"
+            type="button"
+          >
             View all
           </button>
         </div>
 
-        {/* Shelf overview cards */}
-        <div className="shelf-list" aria-label="Book shelves">
-          <article className="shelf-card">
-            <div>
-              <h3>Currently Reading</h3>
-              <p>Books you are actively reading.</p>
-            </div>
+        {/* Currently Reading */}
+        <div className="shelf-group">
+          <div className="shelf-heading">
+            <h3>Currently Reading</h3>
 
-            <span aria-label="3 books">3</span>
-          </article>
+            <p>Books you are actively reading.</p>
+          </div>
 
-          <article className="shelf-card">
-            <div>
-              <h3>Want to Read</h3>
-              <p>Books saved for later.</p>
-            </div>
-
-            <span aria-label="6 books">6</span>
-          </article>
-
-          <article className="shelf-card">
-            <div>
-              <h3>Finished</h3>
-              <p>Books you completed.</p>
-            </div>
-
-            <span aria-label="8 books">8</span>
-          </article>
+          <div
+            className="book-grid"
+            aria-label="Currently reading books"
+          >
+            {currentlyReading.map((book, index) => (
+              <BookCard
+                key={book.isbn13 ?? `${book.title}-${index}`}
+                title={book.title}
+                author={book.author}
+                cover={book.coverUrl ?? ''}
+                status="reading"
+                progress={35 + index * 15}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* Preview book cards */}
-        <div
-          className="book-grid"
-          aria-label="Books currently on your shelf"
-        >
-          <BookCard
-            title="The Midnight Library"
-            author="Matt Haig"
-            cover="https://covers.openlibrary.org/b/id/10521270-L.jpg"
-            status="reading"
-            progress={42}
-          />
+        {/* Want To Read */}
+        <div className="shelf-group">
+          <div className="shelf-heading">
+            <h3>Want to Read</h3>
 
-          <BookCard
-            title="Atomic Habits"
-            author="James Clear"
-            cover="https://covers.openlibrary.org/b/id/8231996-L.jpg"
-            status="want-to-read"
-          />
+            <p>Books saved for later.</p>
+          </div>
 
-          <BookCard
-            title="Dune"
-            author="Frank Herbert"
-            cover="https://covers.openlibrary.org/b/id/8101354-L.jpg"
-            status="finished"
-          />
+          <div
+            className="book-grid"
+            aria-label="Want to read books"
+          >
+            {wantToRead.map((book, index) => (
+              <BookCard
+                key={book.isbn13 ?? `${book.title}-${index}`}
+                title={book.title}
+                author={book.author}
+                cover={book.coverUrl ?? ''}
+                status="want-to-read"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Finished */}
+        <div className="shelf-group">
+          <div className="shelf-heading">
+            <h3>Finished</h3>
+
+            <p>Books you completed recently.</p>
+          </div>
+
+          <div
+            className="book-grid"
+            aria-label="Finished books"
+          >
+            {finishedBooks.map((book, index) => (
+              <BookCard
+                key={book.isbn13 ?? `${book.title}-${index}`}
+                title={book.title}
+                author={book.author}
+                cover={book.coverUrl ?? ''}
+                status="finished"
+              />
+            ))}
+          </div>
         </div>
       </section>
 
