@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e7ddd4;
+  background-color: #fffaf5;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3f2d23;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #5b4636;
+  font-weight: 500;
+}
+
+.search input {
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #d8cfc7;
+  width: 240px;
+}
