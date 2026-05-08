@@ -18,6 +18,7 @@ import type { Book } from '../types';
 
 // TYPES
 
+
 type ShelfBook = Book & {
   shelf: 'reading' | 'want-to-read' | 'finished';
 };
@@ -28,6 +29,11 @@ type BooksContextType = {
   addBookToShelf: (
     book: Book,
     shelf: ShelfBook['shelf']
+  ) => void;
+
+  moveBookToShelf: (
+    isbn13: string | null,
+    newShelf: ShelfBook['shelf']
   ) => void;
 };
 
@@ -107,11 +113,31 @@ export function BooksProvider({
     });
   }
 
+  // Move existing book to another shelf
+  function moveBookToShelf(
+    isbn13: string | null,
+    newShelf: ShelfBook['shelf']
+  ) {
+    setShelfBooks((prevBooks) =>
+      prevBooks.map((book) => {
+        if (book.isbn13 === isbn13) {
+          return {
+            ...book,
+            shelf: newShelf,
+          };
+        }
+
+        return book;
+      })
+    );
+  }
+
   return (
     <BooksContext.Provider
       value={{
         shelfBooks,
         addBookToShelf,
+        moveBookToShelf,
       }}
     >
       {children}

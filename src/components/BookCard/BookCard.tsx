@@ -21,6 +21,12 @@ type BookCardProps = {
   showAddButton?: boolean;
 
   onAddToShelf?: () => void;
+
+  showShelfControls?: boolean;
+
+  onMoveShelf?: (
+    shelf: 'reading' | 'want-to-read' | 'finished'
+  ) => void;
 };
 
 
@@ -36,6 +42,8 @@ function BookCard({
   progress = 0,
   showAddButton = false,
   onAddToShelf,
+  showShelfControls = false,
+  onMoveShelf,
 }: BookCardProps) {
   return (
     <article className="book-card">
@@ -104,6 +112,32 @@ function BookCard({
           >
             Add to Shelf
           </button>
+        )}
+
+        {/* Shelf controls */}
+        {showShelfControls && (
+          <div className="shelf-controls">
+            <button
+              type="button"
+              onClick={() => onMoveShelf?.('reading')}
+            >
+              Reading
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onMoveShelf?.('want-to-read')}
+            >
+              Want
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onMoveShelf?.('finished')}
+            >
+              Finished
+            </button>
+          </div>
         )}
       </div>
     </article>

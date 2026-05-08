@@ -17,7 +17,11 @@ import './Home.css';
 
 function Home() {
   // Global shelf state
-  const { shelfBooks, addBookToShelf } = useBooks();
+  const {
+    shelfBooks,
+    addBookToShelf,
+    moveBookToShelf,
+  } = useBooks();
 
   // Filter books by shelf
   const currentlyReading = shelfBooks.filter(
@@ -120,6 +124,10 @@ function Home() {
                 cover={book.coverUrl ?? ''}
                 status="reading"
                 progress={35 + index * 15}
+                showShelfControls={true}
+                onMoveShelf={(newShelf) =>
+                  moveBookToShelf(book.isbn13, newShelf)
+                }
               />
             ))}
           </div>
@@ -144,6 +152,10 @@ function Home() {
                 author={book.author}
                 cover={book.coverUrl ?? ''}
                 status="want-to-read"
+                showShelfControls={true}
+                onMoveShelf={(newShelf) =>
+                  moveBookToShelf(book.isbn13, newShelf)
+                }
               />
             ))}
           </div>
@@ -168,6 +180,10 @@ function Home() {
                 author={book.author}
                 cover={book.coverUrl ?? ''}
                 status="finished"
+                showShelfControls={true}
+                onMoveShelf={(newShelf) =>
+                  moveBookToShelf(book.isbn13, newShelf)
+                }
               />
             ))}
           </div>
