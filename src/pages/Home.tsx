@@ -18,6 +18,9 @@ const wantToRead: Book[] = books.slice(3, 6);
 
 const finishedBooks: Book[] = books.slice(6, 9);
 
+const discoverBooks: Book[] = books.slice(9, 15);
+
+
 
 
 // COMPONENT
@@ -171,11 +174,21 @@ function Home() {
           </div>
         </div>
 
-        <div className="placeholder-card">
-          <p>
-            Google Books API search results will appear here.
-          </p>
-        </div>
+        {/* Discover books from starter data */}
+<div
+  className="discover-grid"
+  aria-label="Recommended books to discover"
+>
+  {discoverBooks.map((book, index) => (
+    <BookCard
+      key={book.isbn13 ?? `${book.title}-${index}`}
+      title={book.title}
+      author={book.author}
+      cover={book.coverUrl ?? ''}
+      status="want-to-read"
+    />
+  ))}
+</div>
       </section>
     </main>
   );
