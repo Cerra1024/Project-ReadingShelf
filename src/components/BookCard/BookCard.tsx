@@ -5,6 +5,7 @@
 import './BookCard.css';
 
 
+
 // TYPES
 
 
@@ -12,8 +13,14 @@ type BookCardProps = {
   title: string;
   author: string;
   cover: string;
+
   status: 'reading' | 'want-to-read' | 'finished';
+
   progress?: number;
+
+  showAddButton?: boolean;
+
+  onAddToShelf?: () => void;
 };
 
 
@@ -27,6 +34,8 @@ function BookCard({
   cover,
   status,
   progress = 0,
+  showAddButton = false,
+  onAddToShelf,
 }: BookCardProps) {
   return (
     <article className="book-card">
@@ -62,7 +71,7 @@ function BookCard({
           {author}
         </p>
 
-        {/* Reading progress only appears for active books */}
+        {/* Reading progress */}
         {status === 'reading' && (
           <div className="progress-area">
             <div className="progress-label">
@@ -84,6 +93,17 @@ function BookCard({
               />
             </div>
           </div>
+        )}
+
+        {/* Add to shelf button */}
+        {showAddButton && (
+          <button
+            type="button"
+            className="add-button"
+            onClick={onAddToShelf}
+          >
+            Add to Shelf
+          </button>
         )}
       </div>
     </article>
