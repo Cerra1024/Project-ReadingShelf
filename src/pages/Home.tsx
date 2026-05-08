@@ -3,23 +3,12 @@
 
 
 import BookCard from '../components/BookCard/BookCard';
+
 import books from '../data/sample-books.json';
-import type { Book } from '../types';
+
+import { useBooks } from '../context/BooksContext';
+
 import './Home.css';
-
-
-
-// SAMPLE SHELF DATA
-
-
-const currentlyReading: Book[] = books.slice(0, 3);
-
-const wantToRead: Book[] = books.slice(3, 6);
-
-const finishedBooks: Book[] = books.slice(6, 9);
-
-const discoverBooks: Book[] = books.slice(9, 15);
-
 
 
 
@@ -27,6 +16,32 @@ const discoverBooks: Book[] = books.slice(9, 15);
 
 
 function Home() {
+  // Global shelf state
+  const { shelfBooks, addBookToShelf } = useBooks();
+
+  // Filter books by shelf
+  const currentlyReading = shelfBooks.filter(
+    (book) => book.shelf === 'reading'
+  );
+
+  const wantToRead = shelfBooks.filter(
+    (book) => book.shelf === 'want-to-read'
+  );
+
+  const finishedBooks = shelfBooks.filter(
+    (book) => book.shelf === 'finished'
+  );
+
+  // Discover books not already on shelves
+  const discoverBooks = books
+    .filter((discoverBook) => {
+      return !shelfBooks.some(
+        (shelfBook) =>
+          shelfBook.isbn13 === discoverBook.isbn13
+      );
+    })
+    .slice(0, 6);
+
   return (
     <main className="home-page">
       {/* Hero section introduces the app */}
@@ -175,20 +190,24 @@ function Home() {
         </div>
 
         {/* Discover books from starter data */}
-<div
-  className="discover-grid"
-  aria-label="Recommended books to discover"
->
-  {discoverBooks.map((book, index) => (
-    <BookCard
-      key={book.isbn13 ?? `${book.title}-${index}`}
-      title={book.title}
-      author={book.author}
-      cover={book.coverUrl ?? ''}
-      status="want-to-read"
-    />
-  ))}
-</div>
+        <div
+          className="discover-grid"
+          aria-label="Recommended books to discover"
+        >
+          {discoverBooks.map((book, index) => (
+            <BookCard
+              key={book.isbn13 ?? `${book.title}-${index}`}
+              title={book.title}
+              author={book.author}
+              cover={book.coverUrl ?? ''}
+              status="want-to-read"
+              showAddButton={true}
+              onAddToShelf={() =>
+                addBookToShelf(book, 'want-to-read')
+              }
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
