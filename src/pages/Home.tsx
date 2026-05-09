@@ -63,7 +63,7 @@ function Home() {
       <section className="hero-section">
         <div className="hero-content">
           <p className="eyebrow">
-            Your Cozy Reading Tracker
+            Read. Reflect. Reconnect.
           </p>
 
           <h1>
