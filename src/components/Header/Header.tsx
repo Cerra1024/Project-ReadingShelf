@@ -204,6 +204,13 @@ function Header() {
               pageCount:
                 selectedBook.pageCount,
               isbn13: selectedBook.id,
+              isbn10: null,
+              publishedDate:
+                selectedBook.publishedDate,
+              genres: [],
+              description:
+                selectedBook.description,
+              publisher: '',
             },
             shelf
           );
