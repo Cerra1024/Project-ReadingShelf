@@ -6,7 +6,7 @@ import BookClub from './pages/BookClub';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Project-ReadingShelf">
       <Header />
 
       <Routes>
@@ -19,3 +19,4 @@ function App() {
 }
 
 export default App;
+
