@@ -197,14 +197,17 @@ function Header() {
 
           addBookToShelf(
             {
-              title: selectedBook.title,
-              author: selectedBook.author,
-              coverUrl:
-                selectedBook.coverUrl,
-              pageCount:
-                selectedBook.pageCount,
-              isbn13: selectedBook.id,
-            },
+        title: selectedBook.title,
+        author: selectedBook.author,
+        coverUrl: selectedBook.coverUrl,
+        pageCount: selectedBook.pageCount,
+        isbn13: selectedBook.id,
+        isbn10: null,
+        publishedDate: selectedBook.publishedDate,
+        genres: [],
+        description: selectedBook.description,
+        publisher: 'Google Books',
+      },
             shelf
           );
 
