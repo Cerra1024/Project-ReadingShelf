@@ -1,73 +1,54 @@
-# React + TypeScript + Vite
+# Autumn’s Nook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+Autumn’s Nook is a personal reading tracker built with React, TypeScript, and Vite. Users can search for books,  organize books into shelves, track reading progress, and discover books.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+-  Search books with the Google Books API
+-  Add books to custom reading shelves
+- Track reading progress by current page
+-  Persistent local storage state
+-  Reading insights dashboard
+-  “Reading Wrapped” inspired analytics section
+-  Fully responsive layout
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+##  Built With
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- Vite
+- CSS
+- Context API
+- Google Books API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Frontend mentor challenge
+https://www.frontendmentor.io/challenges/personal-reading-list
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Reflection
+The purpose of developing Autumn's Nook is to help readers discover, organize, track, and share their reading experiences in a more engaging and personalized way. The development process began with planning the structure and overall user experience of the application. I first focused on creating the core layout and reusable React components, including the navigation, bookshelf sections, book cards, and responsive page structure. After establishing the design foundation, I implemented global state management using React Context API so bookshelf data could be shared across the entire application.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The most difficult challenge I faced during development was connecting the bookshelf system to the Insights page. Initially, the pages felt disconnected because updates made to the bookshelf were not automatically reflected in the analytics section. To solve this, I implemented React Context API to manage global bookshelf state. This allowed all components to access the same shared data and instantly update whenever books were added, moved between shelves, or updated with reading progress. Another upgrade I made was integrating the Google Books API instead of relying only on starter JSON data. By connecting the Google Books API, users can now search real books, view detailed information, and add books directly to their shelves. This required asynchronous data fetching, state management, and mapping API data so it would work consistently throughout the application.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Understanding how to structure and share state properly across multiple components was one of the biggest learning experiences of the project.
+Overall, I really enjoyed seeing the project functionality come together. Building this out from Design to Deployment and having to overcome challenges and correct every error it really gave me insight on how much work goes into large scale development.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+
+
+## Live demo
+
+
+cerra1024.github.io
+
+Clone the project:
+
+```bash
+git clone https://github.com/yourusername/autumns-nook.git
+
+

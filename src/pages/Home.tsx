@@ -1,39 +1,27 @@
-
+// ==============================
 // IMPORTS
-
+// ==============================
 
 import BookCard from '../components/BookCard/BookCard';
 
-import books from '../data/sample-books.json';
-
 import { useBooks } from '../context/BooksContext';
+
+import books from '../data/sample-books.json';
 
 import './Home.css';
 
 
-
+// ==============================
 // COMPONENT
-
+// ==============================
 
 function Home() {
-  // Global shelf state
   const {
     shelfBooks,
     addBookToShelf,
     moveBookToShelf,
     updateBookPage,
   } = useBooks();
-
-  // Scroll to bookshelf section
-function scrollToShelf() {
-  const shelfSection = document.getElementById(
-    'bookshelf-section'
-  );
-
-  shelfSection?.scrollIntoView({
-    behavior: 'smooth',
-  });
-}
 
   // Filter books by shelf
   const currentlyReading = shelfBooks.filter(
@@ -58,64 +46,73 @@ function scrollToShelf() {
     })
     .slice(0, 6);
 
+  // Scroll to bookshelf section
+  function scrollToShelf() {
+    const shelfSection = document.getElementById(
+      'bookshelf-section'
+    );
+
+    shelfSection?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+
   return (
     <main className="home-page">
-      {/* Hero section introduces the app */}
-      <section
-        className="hero-section"
-        aria-labelledby="home-hero-title"
-      >
+      {/* Hero section */}
+      <section className="hero-section">
         <div className="hero-content">
           <p className="eyebrow">
-            Read. Reflect. Reconnect.
+            Your Cozy Reading Tracker
           </p>
 
-          <h1 id="home-hero-title">
-            Welcome to Autumn&apos;s Nook
+          <h1>
+            Build your perfect reading journey.
           </h1>
 
           <p className="hero-text">
-            Track your books, organize your shelves, and reconnect with your
-            reading journey one chapter at a time.
+            Organize your shelves, track progress, and discover your next
+            favorite story.
           </p>
 
           <button
-        className="primary-button"
-        type="button"
-        onClick={scrollToShelf}
-        >
-         Start Reading
-        </button>
+            className="primary-button"
+            type="button"
+            onClick={scrollToShelf}
+          >
+            Start Reading
+          </button>
         </div>
-
-        
       </section>
 
       {/* Bookshelf section */}
       <section
-         id="bookshelf-section"
-         className="bookshelf-section"
+        id="bookshelf-section"
+        className="bookshelf-section"
         aria-labelledby="bookshelf-title"
       >
         <div className="section-header">
           <div>
-            <p className="eyebrow">My Library</p>
+            <p className="eyebrow">
+              Your Library
+            </p>
 
             <h2 id="bookshelf-title">
               My Bookshelf
             </h2>
           </div>
-
-          <button className="text-button" type="button">
-            View all
-          </button>
         </div>
 
         {/* Currently Reading */}
         <div className="shelf-group">
           <div className="shelf-heading">
-            <h3>Currently Reading</h3>
-            <p>Books you are actively reading.</p>
+            <h3>
+              Currently Reading
+            </h3>
+
+            <p>
+              Books you are actively reading.
+            </p>
           </div>
 
           <div
@@ -132,7 +129,7 @@ function scrollToShelf() {
                 progress={book.progress}
                 pageCount={book.pageCount}
                 currentPage={book.currentPage}
-                showShelfControls={true}
+                showShelfControls
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
                 }
@@ -144,11 +141,16 @@ function scrollToShelf() {
           </div>
         </div>
 
-        {/* Want To Read */}
+        {/* Want to Read */}
         <div className="shelf-group">
           <div className="shelf-heading">
-            <h3>Want to Read</h3>
-            <p>Books saved for later.</p>
+            <h3>
+              Want to Read
+            </h3>
+
+            <p>
+              Books saved for later.
+            </p>
           </div>
 
           <div
@@ -165,12 +167,9 @@ function scrollToShelf() {
                 progress={book.progress}
                 pageCount={book.pageCount}
                 currentPage={book.currentPage}
-                showShelfControls={true}
+                showShelfControls
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
-                }
-                onPageChange={(currentPage) =>
-                  updateBookPage(book.isbn13, currentPage)
                 }
               />
             ))}
@@ -180,8 +179,13 @@ function scrollToShelf() {
         {/* Finished */}
         <div className="shelf-group">
           <div className="shelf-heading">
-            <h3>Finished</h3>
-            <p>Books you completed recently.</p>
+            <h3>
+              Finished
+            </h3>
+
+            <p>
+              Books you completed recently.
+            </p>
           </div>
 
           <div
@@ -198,12 +202,9 @@ function scrollToShelf() {
                 progress={book.progress}
                 pageCount={book.pageCount}
                 currentPage={book.currentPage}
-                showShelfControls={true}
+                showShelfControls
                 onMoveShelf={(newShelf) =>
                   moveBookToShelf(book.isbn13, newShelf)
-                }
-                onPageChange={(currentPage) =>
-                  updateBookPage(book.isbn13, currentPage)
                 }
               />
             ))}
@@ -218,11 +219,17 @@ function scrollToShelf() {
       >
         <div className="section-header">
           <div>
-            <p className="eyebrow">Discover</p>
+            <p className="eyebrow">
+              Discover
+            </p>
 
             <h2 id="discover-title">
-              Discover Books
+              Find your next read
             </h2>
+
+            <p className="hero-text">
+              Explore stories by genre, favorite authors, and cozy new finds.
+            </p>
           </div>
         </div>
 
@@ -237,7 +244,7 @@ function scrollToShelf() {
               author={book.author}
               cover={book.coverUrl ?? ''}
               status="want-to-read"
-              showAddButton={true}
+              showAddButton
               onAddToShelf={() =>
                 addBookToShelf(book, 'want-to-read')
               }
@@ -250,8 +257,8 @@ function scrollToShelf() {
 }
 
 
-
+// ==============================
 // EXPORT
-
+// ==============================
 
 export default Home;

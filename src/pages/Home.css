@@ -47,7 +47,7 @@
   margin: 1rem 0;
   color: #2f241d;
 
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   line-height: 1;
 }
 
@@ -133,7 +133,7 @@
   margin: 0.35rem 0 0;
 
   color: #2f241d;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .text-button {
@@ -216,6 +216,101 @@
   color: #7b6656;
 }
 
+/* ==============================
+   COMPACT BOOKSHELF ROWS
+============================== */
+
+.shelf-row {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+
+  border: 1px solid #eadfd6;
+  border-radius: 22px;
+
+  background-color: white;
+}
+
+.shelf-row-label {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.shelf-icon {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 14px;
+  background-color: #f4e7db;
+}
+
+.shelf-row-label h3 {
+  margin: 0.5rem 0 0;
+
+  color: #2f241d;
+  font-size: 1rem;
+}
+
+.shelf-row-label p {
+  margin: 0;
+
+  color: #6b5749;
+  font-size: 0.9rem;
+}
+
+.shelf-cover-row {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.shelf-cover {
+  width: 86px;
+  height: 128px;
+
+  border-radius: 12px;
+  object-fit: cover;
+
+  box-shadow: 0 10px 24px rgba(63, 45, 35, 0.12);
+}
+
+.shelf-arrow {
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid #eadfd6;
+  border-radius: 50%;
+
+  background-color: #fffaf5;
+
+  color: #3f2d23;
+  font-size: 2rem;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .shelf-row {
+    grid-template-columns: 1fr;
+  }
+
+  .shelf-arrow {
+    display: none;
+  }
+}
+
 
 /* ==============================
    RESPONSIVE
@@ -249,4 +344,21 @@
   .discover-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==============================
+   READING CARDS
+============================== */
+
+.reading-cards {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(260px, 320px)
+  );
+
+  gap: 1rem;
+
+  margin-top: 1.5rem;
 }
