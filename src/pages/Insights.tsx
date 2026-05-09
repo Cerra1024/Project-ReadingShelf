@@ -27,15 +27,6 @@ function Insights() {
     0
   );
 
-  // Genre count
-  const genres = new Set(
-    shelfBooks
-      .map((book) => book.genre)
-      .filter(Boolean)
-  );
-
-  const genresExplored = genres.size;
-
   // Mock streak for now
   const dayStreak = 14;
 
