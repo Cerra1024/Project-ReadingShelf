@@ -208,3 +208,57 @@
 
   object-fit: contain;
 }
+
+/* ==============================
+   USER ACTIONS
+============================== */
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-pill {
+  padding: 0.65rem 0.9rem;
+
+  border-radius: 999px;
+
+  background-color: #f4e7db;
+
+  color: #3f2d23;
+  font-weight: 700;
+}
+
+.auth-link {
+  color: #5b4636;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-button,
+.logout-button {
+  cursor: pointer;
+
+  padding: 0.7rem 1rem;
+
+  border: none;
+  border-radius: 999px;
+
+  background-color: #6f4aa3;
+
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logout-button {
+  background-color: #304423;
+}
+
+@media (max-width: 900px) {
+  .user-actions {
+    justify-content: center;
+  }
+}

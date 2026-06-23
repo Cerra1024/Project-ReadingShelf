@@ -40,7 +40,7 @@ function Register() {
       return;
     }
 
-    navigate('/');
+    navigate('/home');
   }
 
   return (

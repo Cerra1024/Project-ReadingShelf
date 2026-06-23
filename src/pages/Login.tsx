@@ -30,7 +30,7 @@ function Login() {
       return;
     }
 
-    navigate('/');
+    navigate('/home');
   }
 
   return (

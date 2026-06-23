@@ -1,9 +1,9 @@
 
 // IMPORTS
 
-import { useEffect, useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import {
   searchGoogleBooks,
@@ -11,36 +11,29 @@ import {
 } from '../../services/googleBooks';
 
 import { useBooks } from '../../context/BooksContext';
+import { useAuth } from '../../context/AuthContext';
 
 import BookModal from '../BookModal/BookModal';
 
-import './Header.css';
-
 import logo from '../../assets/anlogo.png';
 
+import './Header.css';
 
 
 // COMPONENT
 
 
 function Header() {
-  // Global shelf actions
   const { addBookToShelf } = useBooks();
 
-  // Search input state
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Search results
   const [searchResults, setSearchResults] = useState<GoogleBook[]>([]);
-
-  // Loading state
   const [isSearching, setIsSearching] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<GoogleBook | null>(null);
 
-  // Selected modal book
-  const [selectedBook, setSelectedBook] =
-    useState<GoogleBook | null>(null);
-
-  // Search Google Books
   useEffect(() => {
     const searchTimer = setTimeout(async () => {
       if (!searchTerm.trim()) {
@@ -53,7 +46,6 @@ function Header() {
       const results = await searchGoogleBooks(searchTerm);
 
       setSearchResults(results);
-
       setIsSearching(false);
     }, 500);
 
@@ -62,16 +54,21 @@ function Header() {
     };
   }, [searchTerm]);
 
+  function handleLogout() {
+  logout();
+  navigate('/login');
+}
+
   return (
     <>
       <header className="header">
         {/* Logo / Brand */}
         <div className="brand">
           <img
-  className="brand-logo"
-  src={logo}
-  alt="Autumn's Nook logo"
-/>
+            className="brand-logo"
+            src={logo}
+            alt="Autumn's Nook logo"
+          />
 
           <p className="brand-name">
             Autumn&apos;s Nook
@@ -164,13 +161,47 @@ function Header() {
 
                     <div>
                       <h3>{book.title}</h3>
-
                       <p>{book.author}</p>
                     </div>
                   </button>
                 ))}
               </div>
             )}
+        </div>
+
+        {/* User actions */}
+        <div className="user-actions">
+          {currentUser ? (
+            <>
+              <span className="user-pill">
+                👤 {currentUser.name}
+              </span>
+
+              <button
+                type="button"
+                className="logout-button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                className="auth-link"
+                to="/login"
+              >
+                Login
+              </Link>
+
+              <Link
+                className="auth-button"
+                to="/register"
+              >
+                Register
+              </Link>
+            </>
+          )}
         </div>
       </header>
 
@@ -180,12 +211,8 @@ function Header() {
         title={selectedBook?.title ?? ''}
         author={selectedBook?.author ?? ''}
         coverUrl={selectedBook?.coverUrl ?? null}
-        description={
-          selectedBook?.description ?? null
-        }
-        publishedDate={
-          selectedBook?.publishedDate
-        }
+        description={selectedBook?.description ?? null}
+        publishedDate={selectedBook?.publishedDate}
         pageCount={selectedBook?.pageCount}
         onClose={() =>
           setSelectedBook(null)
@@ -197,17 +224,17 @@ function Header() {
 
           addBookToShelf(
             {
-        title: selectedBook.title,
-        author: selectedBook.author,
-        coverUrl: selectedBook.coverUrl,
-        pageCount: selectedBook.pageCount,
-        isbn13: selectedBook.id,
-        isbn10: null,
-        publishedDate: selectedBook.publishedDate,
-        genres: [],
-        description: selectedBook.description,
-        publisher: 'Google Books',
-      },
+              title: selectedBook.title,
+              author: selectedBook.author,
+              coverUrl: selectedBook.coverUrl,
+              pageCount: selectedBook.pageCount,
+              isbn13: selectedBook.id,
+              isbn10: null,
+              publishedDate: selectedBook.publishedDate,
+              genres: [],
+              description: selectedBook.description,
+              publisher: 'Google Books',
+            },
             shelf
           );
 
@@ -219,8 +246,8 @@ function Header() {
 }
 
 
-
+// ==============================
 // EXPORT
-
+// ==============================
 
 export default Header;

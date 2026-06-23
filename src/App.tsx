@@ -12,6 +12,7 @@ function AppContent() {
   const location = useLocation();
 
   const hideHeader =
+    location.pathname === '/' ||
     location.pathname === '/register' ||
     location.pathname === '/login';
 
@@ -20,30 +21,17 @@ function AppContent() {
       {!hideHeader && <Header />}
 
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Register />} />
 
-        <Route
-          path="/insights"
-          element={<Insights />}
-        />
+        <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/book-club"
-          element={<BookClub />}
-        />
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+        <Route path="/home" element={<Home />} />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/insights" element={<Insights />} />
+
+        <Route path="/book-club" element={<BookClub />} />
       </Routes>
     </>
   );
