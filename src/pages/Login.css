@@ -1,0 +1,266 @@
+.login-page {
+  min-height: 100vh;
+  padding: 2rem;
+
+  display: grid;
+  place-items: center;
+
+  background: #f7efe6;
+}
+
+.login-shell {
+  width: min(1180px, 100%);
+
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+
+  overflow: hidden;
+
+  border-radius: 30px;
+
+  background: white;
+
+  box-shadow: 0 24px 60px rgba(63, 45, 35, 0.18);
+}
+
+.login-info {
+  min-height: 720px;
+  padding: 3rem;
+
+  display: grid;
+  align-content: center;
+
+  color: #2f241d;
+
+  background:
+    linear-gradient(
+      rgba(247, 232, 211, 0.62),
+      rgba(247, 232, 211, 0.62)
+    ),
+    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200');
+
+  background-size: cover;
+  background-position: center;
+}
+
+.login-brand-mark {
+  font-size: 2.3rem;
+  text-align: center;
+}
+
+.login-info h1 {
+  margin: 0.5rem 0;
+
+  color: #3a2418;
+
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  text-align: center;
+}
+
+.login-tagline {
+  margin: 0;
+
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.login-intro {
+  max-width: 520px;
+
+  margin: 2rem auto 0;
+
+  text-align: center;
+
+  color: #2f241d;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.login-quote {
+  max-width: 560px;
+
+  margin: 4rem auto 0;
+
+  text-align: center;
+
+  color: #5b3721;
+  font-size: 1.35rem;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.login-quote cite {
+  display: block;
+
+  margin-top: 0.75rem;
+
+  color: #8a461f;
+  font-size: 1rem;
+  font-style: normal;
+}
+
+.login-form-panel {
+  padding: 4rem 3rem;
+
+  display: grid;
+  align-content: center;
+
+  background: #fffaf5;
+}
+
+.login-decoration {
+  margin-bottom: 1rem;
+
+  text-align: center;
+
+  color: #9b5b33;
+  font-size: 1.5rem;
+}
+
+.login-form-panel h2 {
+  margin: 0;
+
+  color: #2f241d;
+
+  text-align: center;
+  font-size: clamp(3rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.login-form-panel > p {
+  max-width: 360px;
+
+  margin: 1.25rem auto 3rem;
+
+  text-align: center;
+
+  color: #5b4636;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.login-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.login-form label {
+  display: grid;
+  gap: 0.6rem;
+
+  color: #2f241d;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.login-form input {
+  padding: 1rem 1.1rem;
+
+  border: 1px solid #dfd1c4;
+  border-radius: 14px;
+
+  background: transparent;
+  color: #3f2d23;
+
+  font: inherit;
+}
+
+.login-form input:focus {
+  outline: 2px solid #c7b6db;
+  border-color: #6f4aa3;
+}
+
+.forgot-button {
+  cursor: pointer;
+
+  justify-self: end;
+
+  border: none;
+  background: none;
+
+  color: #8a461f;
+  font: inherit;
+  font-weight: 700;
+}
+
+.login-error {
+  margin: 0;
+
+  color: #b42318;
+  font-weight: 700;
+}
+
+.login-form button[type='submit'] {
+  cursor: pointer;
+
+  margin-top: 0.5rem;
+  padding: 1rem;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #304423, #496137);
+
+  color: white;
+  font: inherit;
+  font-weight: 800;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-form button[type='submit']:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 24px rgba(48, 68, 35, 0.25);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  margin: 2rem 0;
+
+  color: #8b7768;
+}
+
+.divider span {
+  flex: 1;
+  height: 1px;
+
+  background-color: #dfd1c4;
+}
+
+.register-link {
+  margin: 0;
+
+  color: #6b5749;
+  text-align: center;
+}
+
+.register-link a {
+  color: #8a461f;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .login-info {
+    min-height: 520px;
+  }
+
+  .login-info,
+  .login-form-panel {
+    padding: 2rem;
+  }
+}
